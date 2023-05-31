@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->string('image', 100)->nullable();
+        Schema::create('student_subjects', function (Blueprint $table) {
+            $table->foreignId('student_id')->constrained('students');
+            $table->foreignId('subject_id')->constrained('subjects');
+            $table->primary(['student_id','subject_id']);
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('student_subjects');
     }
 };
