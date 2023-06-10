@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Requests;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\Category;
@@ -30,9 +29,9 @@ class PostController extends Controller
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
     }
-    public function edit(Post $post)
+    public function edit(Post $post, Category $category)
     {
-        return view('posts.edit')->with(['post' => $post]);
+        return view('posts.edit')->with(['post' => $post, 'categories' => $category->get()]);
     }
      public function update(Post $post, PostRequest $request)
     {

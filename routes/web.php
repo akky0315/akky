@@ -17,7 +17,6 @@ use App\Http\Controllers\CategoryController;
 */
 Route::controller(PostController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('index');
-    Route::get('/categories/{category}', 'index1')->name('index1');
     Route::get('/posts/create', 'create')->name('create');
     Route::get('/posts/{post}', 'show')->name('show');
     Route::post('/posts', 'store')->name('store');
@@ -29,8 +28,10 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth");
+Route::get('/categories',[CategoryController::class, 'index2']);
+Route::get('/categories/create', [CategoryController::class, 'create']);
+Route::get('/categories/{category}', [CategoryController::class, 'index1'])->middleware("auth");
+Route::post('/categories', [CategoryController::class, 'store1']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
